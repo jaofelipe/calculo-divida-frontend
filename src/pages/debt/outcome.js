@@ -1,62 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import api from '../../services/api';
+import './list.css';
+import Money from '../../utils/MoneyConverter';
 
 export default function Outcome() {
-    const configuracao = localStorage.getItem('configuracao');
-    console.log('object:', JSON.parse(configuracao));
+    
+  
+  
+   const [debts, setDebts] = useState([]);
 
-    
+    useEffect(() => {
+      async function loadDebts() {
+        const config = localStorage.getItem('configuracao');
+      
+        const response = await api.post('/calc', JSON.parse(config), {
+          //headers: { user_id }
+        });
   
-    
-    // useEffect(() => {
-    //   socket.on('booking_request', data => {
-    //     setRequests([...requests, data]);
-    //   })
-    // }, [requests, socket]);
+        setDebts(response.data);
+      }
   
-    // useEffect(() => {
-    //   async function loadSpots() {
-    //     const user_id = localStorage.getItem('user');
-    //     const response = await api.get('/dashboard', {
-    //       headers: { user_id }
-    //     });
-  
-    //     setSpots(response.data);
-    //   }
-  
-    //   loadSpots();
-    // }, []);
+      loadDebts();
+    }, [debts]);
   
    
   
     return (
-      <>
-        {/* <ul className="notifications">
-          {requests.map(request => (
-            <li key={request._id}>
-              <p>
-                <strong>{request.user.email}</strong> está solicitando uma reserva em <strong>{request.spot.company}</strong> para a data: <strong>{request.date}</strong>
-              </p>
-              <button className="accept" onClick={() => handleAccept(request._id)}>ACEITAR</button>
-              <button className="reject" onClick={() => handleReject(request._id)}>REJEITAR</button>
-            </li>
-          ))}
-        </ul>
-  
+      <div className="container-list content">
+      <p>
+        Cálculo de dívidas no dia: <strong> {new Date().toLocaleDateString()} </strong>
+      </p>
+         <ul className="notifications">
+          
+        </ul>        
         <ul className="spot-list">
-          {spots.map(spot => (
-            <li key={spot._id}>
-              <header style={{ backgroundImage: `url(${spot.thumbnail_url})` }} />
-              <strong>{spot.company}</strong>
-              <span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO'}</span>
+          { debts.map(debt => (
+            <li key={debt._id}>
+              <strong>data de vencimento </strong>  {debt.dataVencimento}
+              <strong>dias atraso </strong> {debt.atraso} 
+              <strong>valor original: </strong> {Money(debt.original)}
+              <strong>valor juros: </strong> {Money(debt.juros)}
+              <strong>valor final: </strong> {Money(debt.calcDivida)}
+              <strong>valor final de cada parcela:  </strong>  
+              <ul>  
+              { debt.parcelas.map(parcela => (
+                <li key={parcela.id}>     
+                  <span> {parcela.id} - {Money(parcela.parcela)} - DataVencimento: {parcela.vencimento}</span>
+                </li>
+                ))}
+              </ul>
+              <strong>telefone para negociar com um colaborador </strong>{debt.telefone}
+              
             </li>
           ))}
-        </ul> */}
-        <p>Test Data</p>
-  
-        <Link to="/">
-          <button className="btn">Calcular nova dívida</button>
-        </Link>
-      </>
+          
+        </ul>   
+      </div>
     )
   }

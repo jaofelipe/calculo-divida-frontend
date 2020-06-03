@@ -4,16 +4,18 @@ import { useForm } from "react-hook-form";
 
 export default function Create(){
   const { register, handleSubmit} = useForm();
-  localStorage.clear();
+  
   let history = useHistory();
   
   const onSubmit = (data) =>{
       
     try {
+      console.log(JSON.stringify(data));
       localStorage.setItem('configuracao', JSON.stringify(data));
       history.push('/outcome');
     } catch (err) {
       alert('Erro ao enviar dados configuração, tente novamente.');
+      console.log(err);
     }
   }
 
@@ -26,10 +28,10 @@ export default function Create(){
 
       <form className="" onSubmit={handleSubmit(onSubmit)}>
 
-        <label htmlFor="parcelas">Parcelas *</label>
+        <label htmlFor="qtParcelas">Parcelas *</label>
         <input 
-          name="parcelas" 
-          type="text" 
+          name="qtParcelas" 
+          type="number" 
           placeholder="Quant. máxima de parcelas"
           ref={register({required: true, maxLenght: 5})}
         />
@@ -40,9 +42,9 @@ export default function Create(){
             <input type="radio" name="tipoJuros" value="S" ref={register} /> Simples                 
         </div>
 
-        <label htmlFor="percentual">Percentual Juros *</label>
+        <label htmlFor="jurosDia">Percentual Juros *</label>
         <input 
-          name="percentual" 
+          name="jurosDia" 
           type="text" 
           placeholder="Percentual Juros"
           ref={register({ required: true})}
