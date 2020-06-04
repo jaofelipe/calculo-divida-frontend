@@ -2,13 +2,10 @@ import React, {useContext} from 'react';
 import Money from '../utils/MoneyConverter';
 import { AuthContext } from "../firebase/Auth";
 
-
-
-
-
 const ListDebts = (props) => {
-    const {currentUser} = useContext(AuthContext);
     const { repos, config } = props;
+    const {currentUser} = useContext(AuthContext);
+  
     if (repos.length === 0 || !repos) return <p>Não há lista de cálculo de dívidas disponível</p>;
     if (config.length === 0 || !config) return <p>Não há registro de cálculo de dívida</p>;
 

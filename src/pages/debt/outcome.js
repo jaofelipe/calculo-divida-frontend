@@ -33,7 +33,9 @@ export default function Outcome() {
         <p>
           Cálculo de dívidas no dia: <strong> {new Date().toLocaleDateString()} </strong>
         </p>
-        <ListLoading config={config} isLoading={appState.loading} repos={appState.repos} />  
+        <div className='repo-container'>
+          <ListLoading config={config} isLoading={appState.loading} repos={appState.repos} />
+        </div>  
         
       </div>
     )
