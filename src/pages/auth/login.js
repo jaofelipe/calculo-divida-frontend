@@ -13,7 +13,7 @@ const Login = ({ history }) => {
       
         
         if (email.value !== process.env.REACT_APP_FIREBASE_LOGIN 
-            && password.value !== process.env.REACT_APP_FIREBASE_PASSWORD )
+            && password.value !== process.env.REACT_APP_FIREBASE_PASS )
         {
             alert("Login ou senha errados!");
             return;

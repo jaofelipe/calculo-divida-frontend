@@ -61,8 +61,6 @@ export default function Create(){
         />
 
         <button className="btn" type="submit">Calcular</button>
-
-        
       </form>
     </div>
   )
