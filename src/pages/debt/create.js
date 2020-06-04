@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import app from '../../firebase/base';
 
 export default function Create(){
   const { register, handleSubmit} = useForm();
@@ -25,8 +26,8 @@ export default function Create(){
       <p>
         <strong>Configuração para cálculo de dívidas</strong>
       </p>
-
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <button onClick={() => app.auth().signOut()}>Logout</button>
+      <form onSubmit={handleSubmit(onSubmit)}>
 
         <label htmlFor="qtParcelas">Parcelas *</label>
         <input 
@@ -37,7 +38,7 @@ export default function Create(){
         />
 
         <label htmlFor="tipoJuros">Juros *</label>
-        <div className="radio">
+        <div>
             <input type="radio" name="tipoJuros" value="C" ref={register} /> Composto
             <input type="radio" name="tipoJuros" value="S" ref={register} /> Simples                 
         </div>
@@ -46,7 +47,7 @@ export default function Create(){
         <input 
           name="jurosDia" 
           type="text" 
-          placeholder="Percentual Juros"
+          placeholder="Percentual Juros ex.: 0.2"
           ref={register({ required: true})}
         />
 

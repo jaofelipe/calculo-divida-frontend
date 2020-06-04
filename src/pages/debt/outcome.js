@@ -1,35 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../../services/api';
 import './list.css';
 import Money from '../../utils/MoneyConverter';
+import { AuthContext } from "../../firebase/Auth";
 
 export default function Outcome() {
     
-  
-  
    const [debts, setDebts] = useState([]);
+   const {currentUser} = useContext(AuthContext);
 
-    useEffect(() => {
-      async function loadDebts() {
-        const config = localStorage.getItem('configuracao');
-      
-        const response = await api.post('/calc', JSON.parse(config), {
-          //headers: { user_id }
-        });
-  
-        setDebts(response.data);
-      }
-  
-      loadDebts();
-    }, [debts]);
+  function IsAuth(props){
+   
+    if (!currentUser) return null;
+     
+    return <div><strong>comissão Paschoalotto</strong><br /> {Money(props.value)} </div>;
+  } 
+  useEffect(() => {
+    async function loadDebts() {
+      const config = localStorage.getItem('configuracao');
+      if (config === null || config === undefined) { alert("configuração não definida!"); return;}
+      const response = await api.post('/calc', JSON.parse(config), {
+        //headers: { user_id }
+      });
+
+      setDebts(response.data);
+    }
+
+    loadDebts();
+  }, [debts]);
   
    
   
     return (
+
       <div className="container-list content">
-      <p>
-        Cálculo de dívidas no dia: <strong> {new Date().toLocaleDateString()} </strong>
-      </p>
+        <p>
+          Cálculo de dívidas no dia: <strong> {new Date().toLocaleDateString()} </strong>
+        </p>
          <ul className="notifications">
           
         </ul>        
@@ -38,10 +45,10 @@ export default function Outcome() {
             <li key={debt._id}>
               <strong>data de vencimento </strong>  {debt.dataVencimento}
               <strong>dias atraso </strong> {debt.atraso} 
-              <strong>valor original: </strong> {Money(debt.original)}
-              <strong>valor juros: </strong> {Money(debt.juros)}
-              <strong>valor final: </strong> {Money(debt.calcDivida)}
-              <strong>valor final de cada parcela:  </strong>  
+              <strong>valor original </strong> {Money(debt.original)}
+              <strong>valor juros </strong> {Money(debt.juros)}
+              <strong>valor final </strong> {Money(debt.calcDivida)}
+              <strong>valor final de cada parcela  </strong>  
               <ul>  
               { debt.parcelas.map(parcela => (
                 <li key={parcela.id}>     
@@ -50,10 +57,10 @@ export default function Outcome() {
                 ))}
               </ul>
               <strong>telefone para negociar com um colaborador </strong>{debt.telefone}
+              <IsAuth value={debt.calcComissao} /> 
               
-            </li>
-          ))}
-          
+          </li>
+        ))}          
         </ul>   
       </div>
     )
