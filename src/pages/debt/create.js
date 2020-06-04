@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import app from '../../firebase/base';
 
@@ -22,11 +22,12 @@ export default function Create(){
 
   return (
         
-    <div className="container content">
+    <div className="container content">      
+      <button className="back-link" onClick={() => app.auth().signOut()}>Logout</button>
       <p>
         <strong>Configuração para cálculo de dívidas</strong>
       </p>
-      <button onClick={() => app.auth().signOut()}>Logout</button>
+           
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <label htmlFor="qtParcelas">Parcelas *</label>
@@ -60,6 +61,8 @@ export default function Create(){
         />
 
         <button className="btn" type="submit">Calcular</button>
+
+        
       </form>
     </div>
   )
