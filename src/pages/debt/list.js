@@ -1,5 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import './styles.css';
 import ListComponent from '../../components/ListComponent';
 import api from '../../services/api';
@@ -29,10 +29,10 @@ export default function List() {
   
   return (
     <div className="container-list content">
-        <p>
-           Lista de Dívidas   
-        </p>
-      <div className='repo-container'>
+      <Link to="/">
+        <p>Lista de Dívidas</p>
+      </Link>
+      <div>
         <ListLoading isLoading={appState.loading} repos={appState.repos} /> 
       </div>
     </div>

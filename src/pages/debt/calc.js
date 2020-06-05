@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import app from '../../firebase/base';
 
@@ -23,7 +23,7 @@ export default function Create(){
   return (
         
     <div className="container content">      
-      <button className="back-link" onClick={() => app.auth().signOut()}>Logout</button>
+      <button className="link" onClick={() => app.auth().signOut()}>Logout</button>
       <p>
         <strong>Configuração para cálculo de dívidas</strong>
       </p>
@@ -34,8 +34,9 @@ export default function Create(){
         <input 
           name="qtParcelas" 
           type="number" 
+          min="1"
           placeholder="Quant. máxima de parcelas"
-          ref={register({required: true, maxLenght: 5})}
+          ref={register({required: true, maxLenght: 4})}
         />
 
         <label htmlFor="tipoJuros">Juros *</label>
@@ -47,7 +48,9 @@ export default function Create(){
         <label htmlFor="jurosDia">Percentual Juros *</label>
         <input 
           name="jurosDia" 
-          type="text" 
+          type="number" 
+          step=".01"
+          min="0"
           placeholder="Percentual Juros ex.: 0.2"
           ref={register({ required: true})}
         />
@@ -55,7 +58,9 @@ export default function Create(){
         <label htmlFor="comissao">Comissão *</label>
         <input 
           name="comissao" 
-          type="text" 
+          type="number"
+          step=".01"
+          min="0" 
           placeholder="Percentual Paschoalotto"
           ref={register({required: true})}
         />

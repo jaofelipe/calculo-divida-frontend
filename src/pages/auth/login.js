@@ -42,8 +42,7 @@ const Login = ({ history }) => {
         });
 
         try{
-            await app.auth().signInWithEmailAndPassword(email.value, password.value);
-        
+            await app.auth().signInWithEmailAndPassword(email.value, password.value);       
             history.push("/");
         
         } catch (error) {

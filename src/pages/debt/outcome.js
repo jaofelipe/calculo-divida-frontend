@@ -3,7 +3,7 @@ import ListDebtComponent from '../../components/ListDebtComponent';
 import api from '../../services/api';
 import withListLoading from '../../components/withListLoading';
 import './styles.css';
-
+import { format } from 'date-fns';
 
 export default function Outcome() {
     
@@ -17,7 +17,8 @@ export default function Outcome() {
 
   
   useEffect(() => {
-    async function loadDebts() {      
+    async function loadDebts() { 
+      setAppState({ loading: true });     
       const response = await api.post('/calc', JSON.parse(config), {
         //headers: { user_id }
       });
@@ -31,9 +32,9 @@ export default function Outcome() {
 
       <div className="container-list content">
         <p>
-          Cálculo de dívidas no dia: <strong> {new Date().toLocaleDateString()} </strong>
+          Cálculo de dívidas no dia: <strong> {format(new Date(),'dd/MM/yyyy')} </strong>
         </p>
-        <div className='repo-container'>
+        <div>
           <ListLoading config={config} isLoading={appState.loading} repos={appState.repos} />
         </div>  
         

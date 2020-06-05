@@ -3,13 +3,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './firebase/Auth';
 
 //import Test from './pages/test';
-import Config from './pages/debt/create';
+import Config from './pages/debt/calc';
 import Outcome from './pages/debt/outcome';
 import List from './pages/debt/list';
 import Login from './pages/auth/login';
 import PrivateRoute from './firebase/PrivateRoute';
-
-
 
 export default function Routes(){
     return (
@@ -24,5 +22,5 @@ export default function Routes(){
                 </Switch>
             </BrowserRouter>
         </AuthProvider>
-        );
-    }
+    );
+}

@@ -54,6 +54,13 @@ body, input, button {
   margin-bottom: 30px;
 }
 
+.content > a > p {
+  font-size: 22px;
+  line-height: 30px;
+  color: #000;
+  margin-bottom: 30px;
+}
+
 .content form {
   display: flex;
   flex-direction: column;
@@ -98,20 +105,19 @@ body, input, button {
   background: #e14f50;
 }
 
-.back-link {
+.content .link {
   padding: 0 10px;
   height: 35px;
   border: 0;
   border-radius: 2px;
-  margin-left: auto;
-  color: #fff;  
+  margin-left: 9cm;  
+  color: #fff; 
   font-weight: bold;
   font-size: 14px;
   transition: opacity 0.2s;
-  background: #f05a5b;
   cursor: pointer;
 }
 
-.back-link:hover {
-  background: #e14f50;
+.content .link:hover {
+  color: #e14f50;
 }

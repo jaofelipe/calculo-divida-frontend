@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import Money from '../utils/MoneyConverter';
 import { AuthContext } from "../firebase/Auth";
+import { format } from 'date-fns';
 
 const ListDebts = (props) => {
     const { repos, config } = props;
@@ -23,7 +24,7 @@ const ListDebts = (props) => {
                 <ul>  
                 { debt.parcelas.map(parcela => (
                     <li key={parcela.id}>     
-                        <span> {parcela.id} - {Money(parcela.parcela)} - DataVencimento: {parcela.vencimento}</span>
+                        <span> {parcela.id} - {Money(parcela.parcela)} - DataVencimento: {format(new Date(parcela.vencimento),'dd/MM/yyyy')}</span>
                     </li>
                 ))}
                 </ul>
