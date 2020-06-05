@@ -119,5 +119,5 @@ body, input, button {
 }
 
 .content .link:hover {
-  color: #e14f50;
+  background: #e14f50;
 }
